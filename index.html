@@ -6,10 +6,77 @@
   <meta name="viewport" content="width=device-width">
   <title>4.5 patterns</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 24px; }
+    fieldset { margin-bottom: 16px; padding: 12px; }
+    label { display: block; margin-bottom: 6px; font-weight: 600; }
+    input[type="text"], input[type="password"] { padding: 8px; width: 320px; max-width: 100%; box-sizing: border-box; }
+    .hint { color: #666; font-size: 0.9rem; margin-top: 6px; }
+    .message { margin-top: 8px; font-size: 0.95rem; }
+    .message.success { color: green; }
+    .message.error { color: crimson; }
+  </style>
 </head>
 
 <body>
-  Hello world
+  <main>
+    <h1>Form pattern examples (OSIS, Password, Credit Card)</h1>
+
+    <form id="osis-form" action="#" method="post" autocomplete="on">
+      <fieldset>
+        <legend>Part 1 — OSIS Number</legend>
+        <div>
+          <label for="osis">OSIS Number</label>
+          <!-- Accept only digits, exactly 8 digits -->
+          <input id="osis" name="osis" type="text" inputmode="numeric" pattern="^\d{8}$" maxlength="8" placeholder="12345678" title="Enter exactly 8 digits (0-9)" required />
+          <div class="hint">Type exactly 8 digits (0-9). No letters or spaces.</div>
+          <div id="osis-msg" class="message" role="status" aria-live="polite"></div>
+        </div>
+        <div>
+          <input type="submit" value="Submit OSIS" />
+        </div>
+      </fieldset>
+    </form>
+
+    <hr />
+
+
+    <form id="password-form" action="#" method="post" autocomplete="off">
+      <fieldset>
+        <legend>Part 2 — Password</legend>
+        <div>
+          <label for="password">Password</label>
+
+          <input id="password" name="password" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$" placeholder="At least 8 chars, A a 0" title="Password must be at least 8 characters and include uppercase, lowercase, and a number" required />
+          <div class="hint">Needs: 1 uppercase, 1 lowercase, 1 number, minimum 8 characters.</div>
+          <div id="password-msg" class="message" role="status" aria-live="polite"></div>
+        </div>
+        <div>
+          <input type="submit" value="Submit Password" />
+        </div>
+      </fieldset>
+    </form>
+
+    <hr />
+
+
+    <form id="cc-form" action="#" method="post" autocomplete="cc-number">
+      <fieldset>
+        <legend>Part 3 — Credit Card Number</legend>
+        <div>
+          <label for="cc">Credit Card Number</label>
+          
+          <input id="cc" name="cc" type="text" inputmode="numeric" pattern="^\\d{13,19}$" maxlength="23" placeholder="4242 4242 4242 4242" title="Enter your card number (13 to 19 digits). Spaces or dashes are allowed and will be removed." required />
+          <div class="hint">You can paste commonly formatted numbers (spaces/dashes). They will be normalized.</div>
+          <div id="cc-msg" class="message" role="status" aria-live="polite"></div>
+        </div>
+        <div>
+          <input type="submit" value="Submit Card" />
+        </div>
+      </fieldset>
+    </form>
+  </main>
+
   <script src="script.js"></script>
 
 </body>
